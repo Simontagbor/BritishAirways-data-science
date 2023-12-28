@@ -8,13 +8,14 @@ After analysing 1000 reviews of verified and non-verified flight experiences of 
 
 ### Topic Modeling
 
-I used Latent Dirichlet Allocation (LDA) to find the topics in the reviews.
-Rationale: LDA would allow me to find the topics in the reviews and the words that are associated with each topic. This would help British Airways understand the topics that are important to their customers and the words that are associated with each topic.
+I used [Latent Dirichlet Allocation](https://en.wikipedia.org/wiki/Linear_discriminant_analysis#:~:text=Linear%20discriminant%20analysis%20(LDA)%2C,classes%20of%20objects%20or%20events.) (LDA) to find the topics in the reviews.
+#### Rationale: 
+LDA would allow me to find the topics in the reviews and the words that are associated with each topic. This would help British Airways understand the topics that are important to their customers and the words that are associated with each topic.
 
 ##### The top 10 topics are:
 ![Screenshot 2023-12-28 115614](https://github.com/Simontagbor/BritishAirways-data-science/assets/62922135/5a8ec528-6c48-4149-bf02-0cfd4685d91c)
 
-### Sentiment Analysis'
+### Sentiment Analysis
 
 I used textblob to perform sentiment analysis on the reviews.
 Rationale: Sentiment analysis would allow me to understand the sentiment of the reviews. This would help British Airways understand the sentiment of their customers and the words that are associated with each sentiment.
@@ -23,11 +24,9 @@ Rationale: Sentiment analysis would allow me to understand the sentiment of the 
 ![Screenshot 2023-12-28 115954](https://github.com/Simontagbor/BritishAirways-data-science/assets/62922135/4d58017a-4f1d-459c-86a6-c133caaa75c5)
 
 ####  WordClouds Based on Sentiment
-I also created wordclouds based on the sentiment of the reviews. This would help British Airways understand the words that are associated with each sentiment.
-![Screenshot 2023-12-28 120154](https://github.com/Simontagbor/BritishAirways-data-science/assets/62922135/3b6a8d7c-21b4-4425-84f0-9e63678a1b69)
-
-![Screenshot 2023-12-28 120543](https://github.com/Simontagbor/BritishAirways-data-science/assets/62922135/4878d1f1-b83e-4643-b9fb-8337a2b06464)
-
+<p>I also created wordclouds based on the sentiment of the reviews. This would help British Airways understand the words that are associated with each sentiment.</p>
+<img src="https://github.com/Simontagbor/BritishAirways-data-science/assets/62922135/3b6a8d7c-21b4-4425-84f0-9e63678a1b69" width="495" margin="10px">
+<img src="https://github.com/Simontagbor/BritishAirways-data-science/assets/62922135/4878d1f1-b83e-4643-b9fb-8337a2b06464" width="495" margin="10px">
 
 ## Part 2: Process for Data Analysis
 
