@@ -70,7 +70,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.6/require.min.js" integrity="sha512-c3Nl8+7g4LMSTdrm621y7kf9v3SDPnhxLNhcjFJbKECVnmZHTdo+IRO05sNLTH/D3vA6u1X32ehoLC7WFVdheg==" crossorigin="anonymous"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js" integrity="sha512-bLT0Qm9VnAYZDflyKcBaQ2gg0hSYNQrJ8RilYldYQ1FxQYoCLtUjuuRuZo+fjqhx/qtq/1itJ0C2ejDxltZVFg==" crossorigin="anonymous"></script>
 <script type="application/javascript">define('jquery', [],function() {return window.jQuery;})</script>
-
+<style>
+  h1 { color: #3a5f7d; } /* British Airways primary blue */
+  h2 { color: #e00034; } /* British Airways secondary red */
+  h3 { color: #56a1cc; } /* British Airways primary blue */
+  h4 { color: #3b3b3b; } /* British Airways secondary red */
+</style>
 
 </head>
 
@@ -100,7 +105,7 @@ Understanding How Customers Feel About British Airways Flight Experience<br>
 </header>
 
 <blockquote class="blockquote">
-<p>This project was done as part of a job simulation as a junior data scientist at British Airways. I found this peoject very interesting and decided to share it with the community. I hope you find it useful. Please feel free to reach out to me if you have any questions or comments.</p>
+<p>This project was done as part of a job simulation as a junior data scientist at British Airways. I found this project very interesting and decided to share it with the community. I hope you find it useful. Please feel free to reach out to me if you have any questions or comments. The source code for this project can be found on my <a href="https://github.com/Simontagbor/BritishAirways-data-science">GitHub</a> page</p>
 </blockquote>
 <h2 class="anchored">
 Introduction
@@ -124,9 +129,9 @@ Task 1 - Data Retrieval
 </h2>
 <p>For this task, I used the <code>requests</code> and <code>BeautifulSoup</code> libraries to collect all the links to the reviews and then to collect the text data on each of the individual review links. The data was then saved into a local <code>.csv</code> file.</p>
 <h3 class="anchored">
-Scraping data from Skytrax
+Scraping Data From Skytrax
 </h3>
-<p>I Selected <a href="https://www.airlinequality.com">Skyrax</a> as the source for reviews. you can visit the website to see sevearal thousands of flight reviews related to an Airline</p>
+<p>I selected <a href="https://www.airlinequality.com">Skyrax</a> as the source for reviews. you can visit the website to see sevearal thousands of flight reviews related to an Airline</p>
 <p><a href="https://www.airlinequality.com/airline-reviews/british-airways">This link</a> however, shows all reviews related to British Airways. I will use <code>Python</code> and <code>BeautifulSoup</code> to collect all the links to the reviews and then to collect the text data on each of the individual review links.</p>
 <h4 class="anchored">
 Importing the libraries
