@@ -767,7 +767,7 @@ Conduct Analysis
 Visualise the sentiment of the reviews using pie chart
 </h3>
 <p>I used the <code>matplotlib</code> package to render a pie chart visualisation of the sentiment of the reviews. The pie chart shows the percentage of positive, negative and neutral reviews.</p>
-<div class="cell" data-execution_count="15">
+<div class="cell" data-execution_count="34">
 <div class="sourceCode cell-code" id="cb17"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="co"># import matplotlib </span></span>
 <span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
 <span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> datetime <span class="im">import</span> datetime</span>
@@ -791,48 +791,53 @@ Visualise the sentiment of the reviews using pie chart
 <span id="cb17-21"><a href="#cb17-21" aria-hidden="true" tabindex="-1"></a>        autopct<span class="op">=</span>custom_autopct, </span>
 <span id="cb17-22"><a href="#cb17-22" aria-hidden="true" tabindex="-1"></a>        shadow<span class="op">=</span><span class="va">True</span>, </span>
 <span id="cb17-23"><a href="#cb17-23" aria-hidden="true" tabindex="-1"></a>        startangle<span class="op">=</span><span class="dv">140</span>, </span>
-<span id="cb17-24"><a href="#cb17-24" aria-hidden="true" tabindex="-1"></a>        textprops<span class="op">=</span>{<span class="st">'fontsize'</span>: <span class="dv">14</span>, </span>
+<span id="cb17-24"><a href="#cb17-24" aria-hidden="true" tabindex="-1"></a>        textprops<span class="op">=</span>{<span class="st">'fontsize'</span>: <span class="dv">45</span>, </span>
 <span id="cb17-25"><a href="#cb17-25" aria-hidden="true" tabindex="-1"></a>                    <span class="st">'fontweight'</span>: <span class="st">'bold'</span>,                                            </span>
 <span id="cb17-26"><a href="#cb17-26" aria-hidden="true" tabindex="-1"></a>                    <span class="st">'fontfamily'</span>:<span class="st">'sans-serif'</span>, </span>
 <span id="cb17-27"><a href="#cb17-27" aria-hidden="true" tabindex="-1"></a>                    <span class="st">'color'</span>:<span class="st">'white'</span>})</span>
 <span id="cb17-28"><a href="#cb17-28" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb17-29"><a href="#cb17-29" aria-hidden="true" tabindex="-1"></a><span class="co"># make plot area big</span></span>
 <span id="cb17-30"><a href="#cb17-30" aria-hidden="true" tabindex="-1"></a>fig <span class="op">=</span> plt.gcf()</span>
-<span id="cb17-31"><a href="#cb17-31" aria-hidden="true" tabindex="-1"></a>fig.set_size_inches(<span class="dv">25</span>,<span class="dv">10</span>)</span>
+<span id="cb17-31"><a href="#cb17-31" aria-hidden="true" tabindex="-1"></a>fig.set_size_inches(<span class="dv">30</span>,<span class="dv">15</span>)</span>
 <span id="cb17-32"><a href="#cb17-32" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb17-33"><a href="#cb17-33" aria-hidden="true" tabindex="-1"></a>plt.axis(<span class="st">'equal'</span>)</span>
 <span id="cb17-34"><a href="#cb17-34" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb17-35"><a href="#cb17-35" aria-hidden="true" tabindex="-1"></a><span class="co"># Add a title with a bolder font</span></span>
 <span id="cb17-36"><a href="#cb17-36" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">'How Customers Felt About British Airways Flights'</span>, </span>
 <span id="cb17-37"><a href="#cb17-37" aria-hidden="true" tabindex="-1"></a>          fontdict<span class="op">=</span>{</span>
-<span id="cb17-38"><a href="#cb17-38" aria-hidden="true" tabindex="-1"></a>                    <span class="st">'fontsize'</span>: <span class="dv">19</span>, <span class="op">\</span></span>
-<span id="cb17-39"><a href="#cb17-39" aria-hidden="true" tabindex="-1"></a>                    <span class="st">'fontweight'</span>: <span class="st">'medium'</span>,<span class="op">\</span></span>
+<span id="cb17-38"><a href="#cb17-38" aria-hidden="true" tabindex="-1"></a>                    <span class="st">'fontsize'</span>: <span class="dv">55</span>, <span class="op">\</span></span>
+<span id="cb17-39"><a href="#cb17-39" aria-hidden="true" tabindex="-1"></a>                    <span class="st">'fontweight'</span>: <span class="st">'bold'</span>,<span class="op">\</span></span>
 <span id="cb17-40"><a href="#cb17-40" aria-hidden="true" tabindex="-1"></a>                    <span class="st">'fontfamily'</span>:<span class="st">'sans-serif'</span>, <span class="st">'color'</span>:<span class="st">'#00205b'</span>})</span>
 <span id="cb17-41"><a href="#cb17-41" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb17-42"><a href="#cb17-42" aria-hidden="true" tabindex="-1"></a><span class="co"># Add a legend</span></span>
 <span id="cb17-43"><a href="#cb17-43" aria-hidden="true" tabindex="-1"></a>plt.legend(sentiment_counts[<span class="st">'sentiment'</span>],</span>
-<span id="cb17-44"><a href="#cb17-44" aria-hidden="true" tabindex="-1"></a>            title<span class="op">=</span><span class="st">"Categories"</span>, loc<span class="op">=</span><span class="st">"upper left"</span>)</span>
-<span id="cb17-45"><a href="#cb17-45" aria-hidden="true" tabindex="-1"></a>now <span class="op">=</span> datetime.now()</span>
-<span id="cb17-46"><a href="#cb17-46" aria-hidden="true" tabindex="-1"></a><span class="co"># Format the date and time</span></span>
-<span id="cb17-47"><a href="#cb17-47" aria-hidden="true" tabindex="-1"></a>formatted_now <span class="op">=</span> now.strftime(<span class="st">"%B </span><span class="sc">%d</span><span class="st">, %Y %H:%M:%S %A"</span>)</span>
-<span id="cb17-48"><a href="#cb17-48" aria-hidden="true" tabindex="-1"></a>side_note <span class="op">=</span> (</span>
-<span id="cb17-49"><a href="#cb17-49" aria-hidden="true" tabindex="-1"></a>    <span class="ss">f'Note: This analysis is based on sentiment scores for 1000 reviews of '</span></span>
-<span id="cb17-50"><a href="#cb17-50" aria-hidden="true" tabindex="-1"></a>    <span class="ss">f'British Airways Services.</span><span class="ch">\n</span><span class="ss">On this website[ Date:</span><span class="sc">{</span>formatted_now<span class="sc">}</span><span class="ss">]:</span><span class="ch">\n</span><span class="ss">'</span></span>
-<span id="cb17-51"><a href="#cb17-51" aria-hidden="true" tabindex="-1"></a>    <span class="ss">f'https://www.airlinequality.com/airline-reviews/british-airways'</span></span>
-<span id="cb17-52"><a href="#cb17-52" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb17-53"><a href="#cb17-53" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb17-54"><a href="#cb17-54" aria-hidden="true" tabindex="-1"></a><span class="co"># Format the date and time</span></span>
-<span id="cb17-55"><a href="#cb17-55" aria-hidden="true" tabindex="-1"></a>formatted_now <span class="op">=</span> now.strftime(<span class="st">"%B </span><span class="sc">%d</span><span class="st">, %Y %H:%M:%S %A"</span>)</span>
-<span id="cb17-56"><a href="#cb17-56" aria-hidden="true" tabindex="-1"></a><span class="co"># Add a side note</span></span>
-<span id="cb17-57"><a href="#cb17-57" aria-hidden="true" tabindex="-1"></a>plt.text(<span class="op">-</span><span class="fl">2.9</span>, </span>
-<span id="cb17-58"><a href="#cb17-58" aria-hidden="true" tabindex="-1"></a>         <span class="op">-</span><span class="fl">1.5</span>, </span>
-<span id="cb17-59"><a href="#cb17-59" aria-hidden="true" tabindex="-1"></a>         side_note,</span>
-<span id="cb17-60"><a href="#cb17-60" aria-hidden="true" tabindex="-1"></a>                    </span>
-<span id="cb17-61"><a href="#cb17-61" aria-hidden="true" tabindex="-1"></a>        style<span class="op">=</span><span class="st">'italic'</span>, </span>
-<span id="cb17-62"><a href="#cb17-62" aria-hidden="true" tabindex="-1"></a>        fontsize<span class="op">=</span><span class="dv">17</span>,</span>
-<span id="cb17-63"><a href="#cb17-63" aria-hidden="true" tabindex="-1"></a>        bbox<span class="op">=</span>{<span class="st">'facecolor'</span>: <span class="st">'red'</span>, <span class="st">'alpha'</span>: <span class="fl">0.5</span>, <span class="st">'pad'</span>: <span class="dv">10</span>,})</span>
-<span id="cb17-64"><a href="#cb17-64" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb17-65"><a href="#cb17-65" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb17-44"><a href="#cb17-44" aria-hidden="true" tabindex="-1"></a>           title<span class="op">=</span><span class="st">"Categories"</span>, </span>
+<span id="cb17-45"><a href="#cb17-45" aria-hidden="true" tabindex="-1"></a>           loc<span class="op">=</span><span class="st">"lower right"</span>,</span>
+<span id="cb17-46"><a href="#cb17-46" aria-hidden="true" tabindex="-1"></a>           fontsize<span class="op">=</span><span class="dv">30</span>,</span>
+<span id="cb17-47"><a href="#cb17-47" aria-hidden="true" tabindex="-1"></a>           shadow<span class="op">=</span><span class="va">True</span>,  </span>
+<span id="cb17-48"><a href="#cb17-48" aria-hidden="true" tabindex="-1"></a>           facecolor<span class="op">=</span><span class="st">'white'</span>,  <span class="co"># Change background color</span></span>
+<span id="cb17-49"><a href="#cb17-49" aria-hidden="true" tabindex="-1"></a>           edgecolor<span class="op">=</span><span class="st">'black'</span>)  <span class="co"># Add an edge color</span></span>
+<span id="cb17-50"><a href="#cb17-50" aria-hidden="true" tabindex="-1"></a>now <span class="op">=</span> datetime.now()</span>
+<span id="cb17-51"><a href="#cb17-51" aria-hidden="true" tabindex="-1"></a><span class="co"># Format the date and time</span></span>
+<span id="cb17-52"><a href="#cb17-52" aria-hidden="true" tabindex="-1"></a>formatted_now <span class="op">=</span> now.strftime(<span class="st">"%B </span><span class="sc">%d</span><span class="st">, %Y %H:%M:%S %A"</span>)</span>
+<span id="cb17-53"><a href="#cb17-53" aria-hidden="true" tabindex="-1"></a>side_note <span class="op">=</span> (</span>
+<span id="cb17-54"><a href="#cb17-54" aria-hidden="true" tabindex="-1"></a>    <span class="ss">f'Note: This analysis is based on sentiment scores for 1000 reviews of '</span></span>
+<span id="cb17-55"><a href="#cb17-55" aria-hidden="true" tabindex="-1"></a>    <span class="ss">f'British Airways Services.</span><span class="ch">\n</span><span class="ss">On this website[ Date:</span><span class="sc">{</span>formatted_now<span class="sc">}</span><span class="ss">]:</span><span class="ch">\n</span><span class="ss">'</span></span>
+<span id="cb17-56"><a href="#cb17-56" aria-hidden="true" tabindex="-1"></a>    <span class="ss">f'https://www.airlinequality.com/airline-reviews/british-airways'</span></span>
+<span id="cb17-57"><a href="#cb17-57" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb17-58"><a href="#cb17-58" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-59"><a href="#cb17-59" aria-hidden="true" tabindex="-1"></a><span class="co"># Format the date and time</span></span>
+<span id="cb17-60"><a href="#cb17-60" aria-hidden="true" tabindex="-1"></a>formatted_now <span class="op">=</span> now.strftime(<span class="st">"%B </span><span class="sc">%d</span><span class="st">, %Y %H:%M:%S %A"</span>)</span>
+<span id="cb17-61"><a href="#cb17-61" aria-hidden="true" tabindex="-1"></a><span class="co"># Add a side note</span></span>
+<span id="cb17-62"><a href="#cb17-62" aria-hidden="true" tabindex="-1"></a>plt.text(<span class="op">-</span><span class="fl">2.9</span>, </span>
+<span id="cb17-63"><a href="#cb17-63" aria-hidden="true" tabindex="-1"></a>         <span class="op">-</span><span class="fl">1.5</span>, </span>
+<span id="cb17-64"><a href="#cb17-64" aria-hidden="true" tabindex="-1"></a>         side_note,</span>
+<span id="cb17-65"><a href="#cb17-65" aria-hidden="true" tabindex="-1"></a>                    </span>
+<span id="cb17-66"><a href="#cb17-66" aria-hidden="true" tabindex="-1"></a>        style<span class="op">=</span><span class="st">'italic'</span>, </span>
+<span id="cb17-67"><a href="#cb17-67" aria-hidden="true" tabindex="-1"></a>        fontsize<span class="op">=</span><span class="dv">19</span>,</span>
+<span id="cb17-68"><a href="#cb17-68" aria-hidden="true" tabindex="-1"></a>        bbox<span class="op">=</span>{<span class="st">'facecolor'</span>: <span class="st">'red'</span>, <span class="st">'alpha'</span>: <span class="fl">0.5</span>, <span class="st">'pad'</span>: <span class="dv">10</span>,})</span>
+<span id="cb17-69"><a href="#cb17-69" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-70"><a href="#cb17-70" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display">
 <p><img src="index_files/figure-html/cell-15-output-1.png" class="img-fluid"></p>
 </div>
