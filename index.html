@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title> Understanding How Customers Feel About British Airways Flight Experience </title>
+<title>index</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -80,25 +80,24 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 <main class="content" id="quarto-document-content">
 
-<header id="title-block-header" class="quarto-title-block default">
-<div class="quarto-title">
-<h1 class="title"></h1><h1 style="font-weight:bold; font-family:Arial; color:#00205b;"><br>
-Understanding How Customers Feel About British Airways Flight Experience<br>
+
+
+<div style="text-align: left;">
+<h1 style="color: #00205b; font-family: 'Georgia';">
+Understanding How Customers Feel About British Airways Flight Experience: A Topic Modelling and Sentiment Analysis Approach
 </h1>
+<p style="font-size: small;">
+Author: Simontagbor
+</p>
+<p style="font-size: small;">
+Last updated: 2024-01-16
+</p>
 </div>
-
-
-
-<div class="quarto-title-meta">
-
-    
-  
-    
-  </div>
-  
-
-</header>
-
+<hr>
+<div style="text-align: center;">
+<p><a href="https://github.com/Simontagbor" style="text-decoration: none; color: black; font-size: larger; margin-right: 20px;"> <img src="https://github.githubassets.com/images/modules/logos_page/GitHub-Mark.png" height="35" style="vertical-align: middle; margin-right: 10px;"> </a> <a href="https://www.kaggle.com/simontagbor" style="text-decoration: none; color: black; font-size: larger;"> <img src="https://www.kaggle.com/static/images/site-logo.png" height="30" style="vertical-align: middle; margin-right: 10px;"> </a></p>
+</div>
+<hr>
 <blockquote class="blockquote">
 <p>This project was completed as part of a job simulation as a junior data scientist at British Airways. I found this project very interesting and decided to share it with the community. I hope you find it useful. Please feel free to reach out to me if you have any questions or comments. The source code for this project can be found on my <a href="https://github.com/Simontagbor/BritishAirways-data-science">GitHub</a> page</p>
 </blockquote>
@@ -131,39 +130,43 @@ Scraping Data From Skytrax
 Importing the libraries
 </h4>
 <div class="cell" data-execution_count="1">
+<details>
+<summary>Show the code</summary>
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># package to handle web scraping</span></span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> requests</span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> bs4 <span class="im">import</span> BeautifulSoup</span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="co"># p</span></span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="co"># packages to manipulate data</span></span>
-<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
-<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
-<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a><span class="co"># packages for sentiment analysis</span></span>
-<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> textblob <span class="im">import</span> TextBlob</span>
-<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a><span class="co"># packages to visualize data</span></span>
-<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
-<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> seaborn <span class="im">as</span> sns</span>
-<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pyLDAvis</span>
-<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a><span class="co"># import wordcloud to create wordclouds</span></span>
-<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> wordcloud <span class="im">import</span> WordCloud</span>
-<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a><span class="co"># packages to build Topic model</span></span>
-<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> sklearn</span>
-<span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.feature_extraction.text <span class="im">import</span> CountVectorizer</span>
-<span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.decomposition <span class="im">import</span> LatentDirichletAllocation</span>
-<span id="cb1-23"><a href="#cb1-23" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-24"><a href="#cb1-24" aria-hidden="true" tabindex="-1"></a><span class="co"># packages to clean text</span></span>
-<span id="cb1-25"><a href="#cb1-25" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> re</span>
-<span id="cb1-26"><a href="#cb1-26" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> nltk</span>
-<span id="cb1-27"><a href="#cb1-27" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> nltk.corpus <span class="im">import</span> stopwords</span>
-<span id="cb1-28"><a href="#cb1-28" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> nltk.tokenize <span class="im">import</span> RegexpTokenizer</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="co"># packages to manipulate data</span></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="co"># packages for sentiment analysis</span></span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> textblob <span class="im">import</span> TextBlob</span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a><span class="co"># packages to visualize data</span></span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> seaborn <span class="im">as</span> sns</span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pyLDAvis</span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a><span class="co"># import wordcloud to create wordclouds</span></span>
+<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> wordcloud <span class="im">import</span> WordCloud</span>
+<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a><span class="co"># packages to build Topic model</span></span>
+<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> sklearn</span>
+<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.feature_extraction.text <span class="im">import</span> CountVectorizer</span>
+<span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.decomposition <span class="im">import</span> LatentDirichletAllocation</span>
+<span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-23"><a href="#cb1-23" aria-hidden="true" tabindex="-1"></a><span class="co"># packages to clean text</span></span>
+<span id="cb1-24"><a href="#cb1-24" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> re</span>
+<span id="cb1-25"><a href="#cb1-25" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> nltk</span>
+<span id="cb1-26"><a href="#cb1-26" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> nltk.corpus <span class="im">import</span> stopwords</span>
+<span id="cb1-27"><a href="#cb1-27" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> nltk.tokenize <span class="im">import</span> RegexpTokenizer</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
 </div>
 <h4 class="anchored">
 Collecting the links to the review pages and retrieving each review
 </h4>
 <div class="cell" data-execution_count="2">
+<details>
+<summary>Show the code</summary>
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>base_url <span class="op">=</span> <span class="st">"https://www.airlinequality.com/airline-reviews/british-airways"</span></span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>pages <span class="op">=</span> <span class="dv">10</span></span>
 <span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>page_size <span class="op">=</span> <span class="dv">100</span></span>
@@ -188,6 +191,7 @@ Collecting the links to the review pages and retrieving each review
 <span id="cb2-22"><a href="#cb2-22" aria-hidden="true" tabindex="-1"></a>        reviews.append(para.get_text())</span>
 <span id="cb2-23"><a href="#cb2-23" aria-hidden="true" tabindex="-1"></a>    </span>
 <span id="cb2-24"><a href="#cb2-24" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="ss">f"   ---&gt; </span><span class="sc">{</span><span class="bu">len</span>(reviews)<span class="sc">}</span><span class="ss"> total reviews"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
 <div class="cell-output cell-output-stdout">
 <pre><code>Scraping page 1
    ---&gt; 100 total reviews
@@ -236,23 +240,23 @@ Create a Dataframe from the reviews list and save it to a local csv file
 <tbody>
 <tr class="odd">
 <td data-quarto-table-cell-role="th">0</td>
-<td>Not Verified | Extremely rude ground service....</td>
+<td>Not Verified | I was excited to fly BA as I'd ...</td>
 </tr>
 <tr class="even">
 <td data-quarto-table-cell-role="th">1</td>
-<td>✅ Trip Verified | My son and I flew to Geneva...</td>
+<td>Not Verified | I just want to warn everyone o...</td>
 </tr>
 <tr class="odd">
 <td data-quarto-table-cell-role="th">2</td>
-<td>✅ Trip Verified | For the price paid (bought ...</td>
+<td>Not Verified | Paid for business class travell...</td>
 </tr>
 <tr class="even">
 <td data-quarto-table-cell-role="th">3</td>
-<td>✅ Trip Verified | Flight left on time and arr...</td>
+<td>✅ Trip Verified | The plane was extremely dir...</td>
 </tr>
 <tr class="odd">
 <td data-quarto-table-cell-role="th">4</td>
-<td>✅ Trip Verified | Very Poor Business class pr...</td>
+<td>Not Verified | Overall journey wasn’t bad howe...</td>
 </tr>
 </tbody>
 </table>
@@ -263,8 +267,8 @@ Create a Dataframe from the reviews list and save it to a local csv file
 <h4 class="anchored">
 Save the DataFrame to a local csv file
 </h4>
-<div class="cell" data-execution_count="4">
-<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>df.to_csv(<span class="st">"data/BA_reviews.csv"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell" data-execution_count="5">
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>df.to_csv(<span class="st">"../BritishAirways-data-science/data/BA_reviews.csv"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>finally our raw data is saved to a local csv file. The data will be used for the next task.</p>
 <h3 class="anchored">
@@ -272,6 +276,8 @@ Cleaning The Review Data
 </h3>
 <p>After inspecting the data, I noticed that there were some unnecessary text in each of the rows. For example, “✅ Trip Verified” can be removed from each as it’s not relevant to what we want to investigate.</p>
 <div class="cell" data-execution_count="6">
+<details>
+<summary>Show the code</summary>
 <div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co">#list unwanted data</span></span>
 <span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>unwanted_text <span class="op">=</span> [<span class="st">"✅ Trip Verified "</span>, <span class="st">"❎ Not Verified "</span>,<span class="st">"Not Verified "</span>, <span class="st">"|   "</span>, <span class="st">" |  "</span>, <span class="st">"|  "</span>, <span class="st">" | "</span>, <span class="st">"| "</span>, <span class="st">"|"</span>]</span>
 <span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a><span class="co"># punctuation to remove</span></span>
@@ -315,6 +321,7 @@ Cleaning The Review Data
 <span id="cb6-41"><a href="#cb6-41" aria-hidden="true" tabindex="-1"></a>    <span class="co"># join tokens together</span></span>
 <span id="cb6-42"><a href="#cb6-42" aria-hidden="true" tabindex="-1"></a>    review <span class="op">=</span> <span class="st">" "</span>.join(review_token_list)</span>
 <span id="cb6-43"><a href="#cb6-43" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> review</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
 </div>
 <p>The <code>clean_review</code> function takes in a string and returns a string with the following changes</p>
 <ul>
@@ -328,7 +335,7 @@ Cleaning The Review Data
 <h4 class="anchored">
 Update the DataFrame with the cleaned reviews
 </h4>
-<div class="cell" data-execution_count="7">
+<div class="cell">
 <div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Create a new column in the DataFrame with the cleaned text</span></span>
 <span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>df[<span class="st">"cleaned_reviews"</span>] <span class="op">=</span> df[<span class="st">"reviews"</span>].<span class="bu">apply</span>(clean_review)</span>
 <span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>df.head(<span class="dv">5</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -389,26 +396,24 @@ Topic modelling is a technique that allows us to extract the main topics from a 
 Retrieve Main Topics
 </h3>
 <p>
-I discovered that there are several ways of conducting topic modelling on text data. For this project, I used the <a href="https://en.wikipedia.org/wiki/Latent_Dirichlet_allocation">Latent Dirichlet Allocation (LDA)</a> algorithm to extract the main topics from the reviews.
+I explored various approaches for conducting topic modeling on text data and, for this project, opted for the <a href="https://en.wikipedia.org/wiki/Latent_Dirichlet_allocation">Latent Dirichlet Allocation (LDA)</a> algorithm to uncover the primary themes within the reviews
 </p>
 <p>
-Latent Dirichlet Allocation(LDA) is based on two general assumptions:
+The decision to use LDA is rooted in its adherence to two fundamental assumptions:
 </p>
 <ol>
 <li>
-Documents that have similar words usually have the same topic.
+<strong>Semantic Similarity</strong>: LDA assumes that documents with similar words are likely to share the same underlying topic. This aligns with the nature of reviews, where common vocabulary often indicates a shared focus.
 </li>
 <li>
-Documents that have groups of words frequently occurring together usually have the same topic.
+<strong>Word Co-occurrence</strong>: LDA assumes that words frequently occurring together in documents signify a common theme. In the context of reviews, this implies that recurring groups of words are indicative of specific topics, such as food, seating, or staff.
 </li>
 </ol>
 <p>
-A <code>document</code> in LDA means a review in our case
-</p>
+</p><p>In our case, a “document” corresponds to a review, and a “topic” represents the main theme of a review (e.g., food quality, seating comfort, staff behavior).</p>
 <p>
-A <code>topic</code> in LDA means the main topic of a review, for example, a review can be about the food, the seats, the staff, etc.
+By applying the LDA algorithm, I aim to extract and categorize the main topics inherent in the reviews. Each review will be assigned to a specific topic. The resulting topics will be stored in a .csv file, facilitating further analysis. This selection was driven by LDA’s ability to capture semantic relationships and word co-occurrence patterns, making it a suitable choice for uncovering latent themes in textual data.
 </p>
-<p>The LDA algorithm will extract the main topics from the reviews and assign each review to a topic. The topics will be saved to a <code>.csv</code> file for further analysis.</p>
 <h4 class="anchored">
 Vectorize The Reviews
 </h4>
@@ -421,7 +426,7 @@ For example, the review <code>"The food was great"</code> will be converted to a
 <p>
 The vector has 10 elements, each element represents a word in the review. The number 1 in the vector represents the word “food” in the review. The number 0 represents the other words in the review.
 </p>
-<div class="cell" data-execution_count="8">
+<div class="cell">
 <div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="co"># create the transform and fit it on the cleaned reviews</span></span>
 <span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>vectorizer <span class="op">=</span> CountVectorizer(ngram_range<span class="op">=</span>(<span class="dv">1</span>, <span class="dv">2</span>), stop_words<span class="op">=</span><span class="st">'english'</span>)</span>
@@ -442,7 +447,7 @@ The vector has 10 elements, each element represents a word in the review. The nu
 Create LDA model object
 </h3>
 <p>The <code>lda_model</code> variable is an object that contains the LDA model. This object will be used to extract the main topics from the reviews.</p>
-<div class="cell" data-execution_count="9">
+<div class="cell">
 <div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>number_of_topics <span class="op">=</span> <span class="dv">10</span></span>
 <span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a><span class="cf">try</span>:</span>
 <span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>    <span class="co"># create the model</span></span>
@@ -465,7 +470,7 @@ To visualize the topics, I used the <code>pyLDAvis</code> library. The visualiza
 <h4 class="anchored">
 Top five(5) topics from 1000 reviews
 </h4>
-<div class="cell" data-execution_count="10">
+<div class="cell">
 <div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Create table to display topics</span></span>
 <span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> display_topics(model, feature_names, no_top_words):</span>
 <span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>    <span class="co">"""records the top words in each topic"""</span></span>
@@ -635,7 +640,7 @@ Top five(5) topics from 1000 reviews
 Show Topic Distribution
 </h3>
 <p>To show the top topic distributions for all the reviews, I used <code>PyLDAvis</code> to create an interactive visualization of the topics. The visualization below shows the topics and the most relevant words in each topic. The size of the bubbles represents the importance of the topics relative to each other. The closer the bubbles are to each other, the more similar the topics are.</p>
-<div class="cell" data-execution_count="11">
+<div class="cell">
 <div class="sourceCode cell-code" id="cb12"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="co"># compute  document  topic distribution</span></span>
 <span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> warnings</span>
 <span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -714,7 +719,7 @@ Prepare a cleaned data for analysis
 </h3>
 <p>I called the <code>clean_review</code> function on each row of the dataframe and save the cleaned data to a csv file</p>
 <p>The <code>clean_review</code> function is called with the save_to_file parameter set to True. This will save the cleaned data to a csv file for later use.</p>
-<div class="cell" data-execution_count="12">
+<div class="cell">
 <div class="sourceCode cell-code" id="cb13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>df[<span class="st">"cleaned_reviews"</span>] <span class="op">=</span> df[<span class="st">"reviews"</span>].<span class="bu">apply</span>(<span class="kw">lambda</span> x: clean_review(x, save_to_file<span class="op">=</span><span class="va">True</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <h3 class="anchored">
@@ -723,7 +728,9 @@ Define a function to conduct sentiment analysis on the reviews
 <p>
 for this analysis I used the <code>TextBlob</code> package to conduct sentiment analysis on the reviews. The <code>TextBlob</code> Python library provides a simple API for diving into common natural language processing (NLP) tasks such as part-of-speech tagging, noun phrase extraction, sentiment analysis, classification and translation.
 </p>
-<div class="cell" data-execution_count="13">
+<div class="cell">
+<details>
+<summary>Show the code</summary>
 <div class="sourceCode cell-code" id="cb14"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="co"># import textblob for sentiment analysis</span></span>
 <span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> textblob <span class="im">import</span> TextBlob</span>
 <span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> analyse_sentiment():</span>
@@ -750,11 +757,12 @@ for this analysis I used the <code>TextBlob</code> package to conduct sentiment 
 <span id="cb14-24"><a href="#cb14-24" aria-hidden="true" tabindex="-1"></a>        analyse_sentiment()</span>
 <span id="cb14-25"><a href="#cb14-25" aria-hidden="true" tabindex="-1"></a>    <span class="cf">except</span> <span class="pp">Exception</span> <span class="im">as</span> e:</span>
 <span id="cb14-26"><a href="#cb14-26" aria-hidden="true" tabindex="-1"></a>        <span class="bu">print</span>(<span class="st">"An error occurred: "</span>, e)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
 </div>
 <h3 class="anchored">
 Conduct Analysis
 </h3>
-<div class="cell" data-execution_count="14">
+<div class="cell">
 <div class="sourceCode cell-code" id="cb15"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="co">#  call  the function</span></span>
 <span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>analyse_sentiment()</span>
 <span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>df.head(<span class="dv">20</span>)</span>
@@ -767,7 +775,9 @@ Conduct Analysis
 Visualise the sentiment of the reviews using pie chart
 </h3>
 <p>I used the <code>matplotlib</code> package to render a pie chart visualisation of the sentiment of the reviews. The pie chart shows the percentage of positive, negative and neutral reviews.</p>
-<div class="cell" data-execution_count="34">
+<div class="cell">
+<details>
+<summary>Show the code</summary>
 <div class="sourceCode cell-code" id="cb17"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="co"># import matplotlib </span></span>
 <span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
 <span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> datetime <span class="im">import</span> datetime</span>
@@ -838,6 +848,7 @@ Visualise the sentiment of the reviews using pie chart
 <span id="cb17-68"><a href="#cb17-68" aria-hidden="true" tabindex="-1"></a>        bbox<span class="op">=</span>{<span class="st">'facecolor'</span>: <span class="st">'red'</span>, <span class="st">'alpha'</span>: <span class="fl">0.5</span>, <span class="st">'pad'</span>: <span class="dv">10</span>,})</span>
 <span id="cb17-69"><a href="#cb17-69" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb17-70"><a href="#cb17-70" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
 <div class="cell-output cell-output-display">
 <p><img src="index_files/figure-html/cell-15-output-1.png" class="img-fluid"></p>
 </div>
@@ -847,7 +858,9 @@ Visualise the sentiment of the reviews using pie chart
 Analysing the Topics Associated with each type of sentiment
 </h3>
 <p>I used the <code>wordcloud</code> package to visualise the sentiment of the reviews. Using <code>wordcloud</code> allowed me to visualise the top words based on the sentiment of the reviews (positive, negative, neutral).</p>
-<div class="cell" data-execution_count="16">
+<div class="cell">
+<details>
+<summary>Show the code</summary>
 <div class="sourceCode cell-code" id="cb18"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> random <span class="im">import</span> choice</span>
 <span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> wordcloud <span class="im">import</span> WordCloud</span>
 <span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> datetime <span class="im">import</span> datetime</span>
@@ -901,11 +914,12 @@ Analysing the Topics Associated with each type of sentiment
 <span id="cb18-51"><a href="#cb18-51" aria-hidden="true" tabindex="-1"></a>                              random_state<span class="op">=</span><span class="dv">21</span>, </span>
 <span id="cb18-52"><a href="#cb18-52" aria-hidden="true" tabindex="-1"></a>                              max_font_size<span class="op">=</span><span class="dv">110</span>, </span>
 <span id="cb18-53"><a href="#cb18-53" aria-hidden="true" tabindex="-1"></a>                              color_func<span class="op">=</span>custom_color_func).generate(neutral_words)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
 </div>
 <h3 class="anchored">
 Positive Reviews
 </h3>
-<div class="cell" data-execution_count="17">
+<div class="cell">
 <div class="sourceCode cell-code" id="cb19"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a><span class="co"># plot wordclouds</span></span>
 <span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a>fig, ax <span class="op">=</span> plt.subplots(figsize<span class="op">=</span>(<span class="dv">20</span>, <span class="dv">10</span>))</span>
@@ -923,7 +937,7 @@ Positive Reviews
 <h3 class="anchored">
 Negative Reviews
 </h3>
-<div class="cell" data-execution_count="18">
+<div class="cell">
 <div class="sourceCode cell-code" id="cb20"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a>fig, ax <span class="op">=</span> plt.subplots(figsize<span class="op">=</span>(<span class="dv">20</span>, <span class="dv">10</span>))</span>
 <span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a>plt.imshow(negative_wordcloud, interpolation<span class="op">=</span><span class="st">"bilinear"</span>)</span>
@@ -940,7 +954,7 @@ Negative Reviews
 <h3 class="anchored">
 Neutral Reviews
 </h3>
-<div class="cell" data-execution_count="19">
+<div class="cell">
 <div class="sourceCode cell-code" id="cb21"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a>fig, ax <span class="op">=</span> plt.subplots(figsize<span class="op">=</span>(<span class="dv">20</span>, <span class="dv">10</span>))</span>
 <span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a>plt.imshow(neutral_wordcloud, interpolation<span class="op">=</span><span class="st">"bilinear"</span>)</span>
